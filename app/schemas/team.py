@@ -11,6 +11,11 @@ class TeamCreate(TeamBase):
     pass
 
 
+class TeamUpdate(TeamBase):
+    name: Optional[str] = None
+    avatar_url: Optional[str] = None
+
+
 class TeamResponse(TeamBase):
     id: int
     avatar_url: str
