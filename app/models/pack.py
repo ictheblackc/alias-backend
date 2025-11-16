@@ -1,9 +1,10 @@
 from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import relationship
 from app.models.base import Base
 
 
-class Team(Base):
-    __tablename__ = 'teams'
+class Pack(Base):
+    __tablename__ = 'packs'
 
     id = Column(
         Integer,
@@ -15,8 +16,13 @@ class Team(Base):
         nullable=False,
         unique=True,
         )
-    avatar_url = Column(
+    description = Column(
         String,
         nullable=True,
-        default='static/avatars/default.png',
+        )
+
+    words = relationship(
+        'Word',
+        back_populates='pack',
+        cascade='all, delete-orphan',
         )
