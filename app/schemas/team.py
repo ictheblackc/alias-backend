@@ -14,3 +14,6 @@ class TeamCreate(TeamBase):
 class TeamResponse(TeamBase):
     id: int
     avatar_url: str
+
+    class Config:
+        from_attributes = True
