@@ -1,8 +1,5 @@
 from sqlalchemy import Column, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
-
-
-Base = declarative_base()
+from app.api.v1.base import Base
 
 
 class Team(Base):
@@ -11,11 +8,15 @@ class Team(Base):
     id = Column(
         Integer,
         primary_key=True,
-        index=True)
+        index=True,
+        )
     name = Column(
         String,
-        nullable=False)
+        nullable=False,
+        unique=True,
+        )
     avatar_url = Column(
         String,
         nullable=True,
-        default='static/avatars/default.png')
+        default='static/avatars/default.png',
+        )
