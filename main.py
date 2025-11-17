@@ -7,8 +7,10 @@ from app.database import engine
 from app.models.team import Base as TeamBase
 from app.models.pack import Base as PackBase
 from app.models.word import Base as WordBase
+from app.models.settings import Base as SettingsBase
 from app.api.v1.teams import router as teams_router
 from app.api.v1.packs import router as packs_router
+from app.api.v1.settings import router as settings_router
 
 
 app = FastAPI()
@@ -23,12 +25,26 @@ app.add_middleware(
 TeamBase.metadata.create_all(bind=engine)
 PackBase.metadata.create_all(bind=engine)
 WordBase.metadata.create_all(bind=engine)
+SettingsBase.metadata.create_all(bind=engine)
 
 os.makedirs('static/avatars', exist_ok=True)
 app.mount('/static', StaticFiles(directory='static'), name='static')
 
-app.include_router(teams_router, prefix='/api/v1/teams', tags=['teams'])
-app.include_router(packs_router, prefix='/api/v1/packs', tags=['packs'])
+app.include_router(
+    teams_router,
+    prefix='/api/v1/teams',
+    tags=['teams']
+    )
+app.include_router(
+    packs_router,
+    prefix='/api/v1/packs',
+    tags=['packs']
+    )
+app.include_router(
+    settings_router,
+    prefix='/api/v1/settings',
+    tags=['settings']
+    )
 
 
 if __name__ == '__main__':
